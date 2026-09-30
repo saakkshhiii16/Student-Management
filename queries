@@ -1,0 +1,154 @@
+# MongoDB Queries
+
+## 1. Create / Select Database
+
+```javascript
+use Students
+```
+
+## 2. Create Collection
+
+```javascript
+db.createCollection("students")
+```
+
+## 3. Insert Student Records
+
+```javascript
+db.students.insertMany([
+  {roll:1, name:"Ananya", age:18, marks:86, city:"Lucknow"},
+  {roll:2, name:"Rohan", age:19, marks:74, city:"Kanpur"},
+  {roll:3, name:"Meera", age:20, marks:93, city:"Agra"},
+  {roll:4, name:"Aditya", age:18, marks:68, city:"Varanasi"},
+  {roll:5, name:"Kavya", age:19, marks:82, city:"Lucknow"}
+])
+```
+
+> The original project contains 50 student records; the complete dataset is included in the project report.
+
+## 4. Display All Students
+
+```javascript
+db.students.find()
+```
+
+## 5. Equal To — `$eq`
+
+Find students whose marks are exactly 88:
+
+```javascript
+db.students.find({marks: {$eq: 88}})
+```
+
+## 6. Greater Than — `$gt`
+
+Find students whose marks are greater than 85:
+
+```javascript
+db.students.find({marks: {$gt: 85}})
+```
+
+## 7. Less Than — `$lt`
+
+Find students whose marks are less than 60:
+
+```javascript
+db.students.find({marks: {$lt: 60}})
+```
+
+## 8. Greater Than or Equal To — `$gte`
+
+Find students whose marks are 90 or above:
+
+```javascript
+db.students.find({marks: {$gte: 90}})
+```
+
+## 9. Less Than or Equal To — `$lte`
+
+Find students whose marks are 70 or below:
+
+```javascript
+db.students.find({marks: {$lte: 70}})
+```
+
+## 10. Update Operation
+
+Update marks of the student with roll number 5:
+
+```javascript
+db.students.updateOne(
+  {roll: 5},
+  {$set: {marks: 95}}
+)
+```
+
+## 11. Delete One Student
+
+Delete the student with roll number 10:
+
+```javascript
+db.students.deleteOne({roll: 10})
+```
+
+## 12. Delete Multiple Students
+
+Delete students having marks below 60:
+
+```javascript
+db.students.deleteMany({
+  marks: {$lt: 60}
+})
+```
+
+## 13. AND Operation — `$and`
+
+Find students who have marks greater than 80 **and** are 19 years old:
+
+```javascript
+db.students.find({
+  $and: [
+    {marks: {$gt: 80}},
+    {age: 19}
+  ]
+})
+```
+
+## 14. OR Operation — `$or`
+
+Find students from Lucknow **or** Kanpur:
+
+```javascript
+db.students.find({
+  $or: [
+    {city: "Lucknow"},
+    {city: "Kanpur"}
+  ]
+})
+```
+
+## 15. Sort — Ascending
+
+Sort students from lowest marks to highest:
+
+```javascript
+db.students.find().sort({marks: 1})
+```
+
+## 16. Sort — Descending
+
+Sort students from highest marks to lowest:
+
+```javascript
+db.students.find().sort({marks: -1})
+```
+
+## 17. Limit
+
+Display only the first 5 documents:
+
+```javascript
+db.students.find().limit(5)
+```
+
+##
