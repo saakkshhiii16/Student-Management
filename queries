@@ -1,120 +1,44 @@
-# MongoDB Queries
+// 1. Switch or create database
+use Students;
 
-## 1. Create / Select Database
+// 2. Create collection
+db.createCollection("students");
 
-use Students
+// 3. Queries & CRUD Operations
 
-## 2. Create Collection
+// Find all students
+db.students.find();
 
-db.createCollection("students")
+// Comparison Operators
+db.students.find({ marks: { $eq: 88 } });
+db.students.find({ marks: { $gt: 85 } });
+db.students.find({ marks: { $lt: 60 } });
+db.students.find({ marks: { $gte: 90 } });
+db.students.find({ marks: { $lte: 70 } });
 
-## 3. Insert Student Records
-
-db.students.insertMany([
-  {roll:1, name:"Ananya", age:18, marks:86, city:"Lucknow"},
-  {roll:2, name:"Rohan", age:19, marks:74, city:"Kanpur"},
-  {roll:3, name:"Meera", age:20, marks:93, city:"Agra"},
-  {roll:4, name:"Aditya", age:18, marks:68, city:"Varanasi"},
-  {roll:5, name:"Kavya", age:19, marks:82, city:"Lucknow"}
-])
-
-> The original project contains 50 student records; the complete dataset is included in the project report.
-
-## 4. Display All Students
-
-db.students.find()
-
-## 5. Equal To — `$eq`
-
-Find students whose marks are exactly 88:
-
-db.students.find({marks: {$eq: 88}})
-
-## 6. Greater Than — `$gt`
-
-Find students whose marks are greater than 85:
-
-db.students.find({marks: {$gt: 85}})
-
-## 7. Less Than — `$lt`
-
-Find students whose marks are less than 60:
-
-db.students.find({marks: {$lt: 60}})
-
-## 8. Greater Than or Equal To — `$gte`
-
-Find students whose marks are 90 or above:
-
-db.students.find({marks: {$gte: 90}})
-
-## 9. Less Than or Equal To — `$lte`
-
-Find students whose marks are 70 or below:
-
-db.students.find({marks: {$lte: 70}})
-
-## 10. Update Operation
-
-Update marks of the student with roll number 5:
-
-db.students.updateOne(
-  {roll: 5},
-  {$set: {marks: 95}}
-)
-
-## 11. Delete One Student
-
-Delete the student with roll number 10:
-
-db.students.deleteOne({roll: 10})
-
-## 12. Delete Multiple Students
-
-Delete students having marks below 60:
-
-db.students.deleteMany({
-  marks: {$lt: 60}
-})
-
-## 13. AND Operation — `$and`
-
-Find students who have marks greater than 80 **and** are 19 years old:
-
-```javascript
+// Logical Operators
 db.students.find({
   $and: [
-    {marks: {$gt: 80}},
-    {age: 19}
+    { marks: { $gt: 80 } },
+    { age: 19 }
   ]
-})
-```
-
-## 14. OR Operation — `$or`
-
-Find students from Lucknow **or** Kanpur:
+});
 
 db.students.find({
   $or: [
-    {city: "Lucknow"},
-    {city: "Kanpur"}
+    { city: "Delhi" },
+    { city: "Pune" }
   ]
-})
+});
 
-## 15. Sort — Ascending
+// Update & Delete
+db.students.updateOne({ roll: 105 }, { $set: { marks: 95 } });
+db.students.deleteOne({ roll: 110 });
+db.students.deleteMany({ marks: { $lt: 60 } });
 
-Sort students from lowest marks to highest:
-
-db.students.find().sort({marks: 1})
-
-## 16. Sort — Descending
-
-Sort students from highest marks to lowest:
-
-db.students.find().sort({marks: -1})
-
-## 17. Limit
-
-Display only the first 5 documents:
-
-db.students.find().limit(5)
+// Sorting, Limiting, and Counting
+db.students.find().sort({ marks: 1 });   // Ascending
+db.students.find().sort({ marks: -1 });  // Descending
+db.students.find().limit(5);
+db.students.find({ city: "Mumbai" });
+db.students.countDocuments();
