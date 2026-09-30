@@ -94,37 +94,27 @@ db.students.find({
 
 Find students from Lucknow **or** Kanpur:
 
-```javascript
 db.students.find({
   $or: [
     {city: "Lucknow"},
     {city: "Kanpur"}
   ]
 })
-```
 
 ## 15. Sort — Ascending
 
 Sort students from lowest marks to highest:
 
-```javascript
 db.students.find().sort({marks: 1})
-```
 
 ## 16. Sort — Descending
 
 Sort students from highest marks to lowest:
 
-```javascript
 db.students.find().sort({marks: -1})
-```
 
 ## 17. Limit
 
 Display only the first 5 documents:
 
-```javascript
 db.students.find().limit(5)
-```
-
-##
